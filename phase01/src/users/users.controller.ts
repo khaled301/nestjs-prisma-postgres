@@ -9,7 +9,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRoleType } from './users.types';
 
 // Data transfer Object Schemas | DTOs
-
+// Pipes are special type of middleware
 // decorator | route order matters like water fall
 @Controller('users') // route /users
 export class UsersController {
