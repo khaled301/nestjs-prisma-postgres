@@ -7,6 +7,7 @@ This repository provides a boilerplate for building a scalable backend API with 
 - Providers
 - DTO Validation
 - REST API
+- Fetch Data From Public API 
 - Essential Additions
   - Global Exception Handling
   - Logging

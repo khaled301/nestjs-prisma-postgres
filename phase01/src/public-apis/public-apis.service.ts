@@ -3,7 +3,6 @@ import { CreatePublicApiDto } from './dto/create-public-api.dto';
 import { UpdatePublicApiDto } from './dto/update-public-api.dto';
 import axios, { AxiosResponse } from 'axios';
 import { HttpService } from '@nestjs/axios';
-// import fetch from 'node-fetch';
 import { Observable, map } from 'rxjs';
 @Injectable()
 export class PublicApisService {
