@@ -65,3 +65,6 @@ https://www.prisma.io/docs/orm/reference/error-reference
 
 7. Helpful nestjs-prisma package
 https://nestjs-prisma.dev/docs/logging-middleware/
+
+8. HTTP Requests Using Libraries
+https://medium.com/@cristian.rosas/5-libraries-to-make-http-requests-on-nestjs-44442afa0a94

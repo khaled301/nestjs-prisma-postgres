@@ -1,12 +1,14 @@
 import { 
     Body, Controller, Delete, Get, 
     Param, Patch, Post, Query, ParseIntPipe,
-    ValidationPipe
+    ValidationPipe, UsePipes
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRoleType } from './users.types';
+import { NewCreateUserDto } from './dto/newCreateUser.dto';
+import { NewUpdateUserDto } from './dto/newUpdateUser.dto';
 
 // Data transfer Object Schemas | DTOs
 // Pipes are special type of middleware
@@ -15,6 +17,33 @@ import { UserRoleType } from './users.types';
 export class UsersController {
 
     constructor(private readonly usersService: UsersService) {}
+
+    @Post('new')
+    @UsePipes(ValidationPipe)
+    newCreateUser(@Body() createUserDto: NewCreateUserDto) {
+        return this.usersService.newCreateUser(createUserDto);
+    }
+
+    @Patch('new/:id')
+    @UsePipes(ValidationPipe)
+    newUpdateUser(@Param('id', ParseIntPipe) id: number,  @Body() updateUserDto: NewUpdateUserDto) {
+        return this.usersService.newUpdateUser(id, updateUserDto);
+    }
+
+    @Delete('new/:id')
+    newDeleteUser(@Param('id', ParseIntPipe) id: number) {
+        return this.usersService.newDeleteUser(id);
+    }
+
+    @Get('new')
+    newFindAllUsers() {
+        return this.usersService.newFindAllUsers();
+    }
+
+    @Get('new/:id')
+    newFindUser(@Param('id', ParseIntPipe) id: number) {
+        return this.usersService.newFindUser(id);
+    }
 
     @Get() // GET /users or /users?role=value
     findAll(@Query('role') role?: UserRoleType){
@@ -44,4 +73,5 @@ export class UsersController {
     delete(@Param('id', ParseIntPipe) id: number){
         return this.usersService.delete(id);
     }
+
 }

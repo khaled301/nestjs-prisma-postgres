@@ -30,3 +30,22 @@ enum Role {
   ENGINEER
   ADMIN
 }
+
+model User {
+  id Int @default(autoincrement()) @id
+  username String @unique
+  displayname String @default("")
+}
+
+model UserSetting {
+  id Int @default(autoincrement()) @id 
+  notificationIsOn Boolean
+  smsEnabled  Boolean
+}
+
+model Post {
+  id Int @default(autoincrement()) @id
+  title String
+  description String
+}
+

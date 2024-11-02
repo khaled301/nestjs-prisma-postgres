@@ -2,7 +2,7 @@ import  { Catch, ArgumentsHost, HttpStatus, HttpException } from '@nestjs/common
 import { BaseExceptionFilter } from '@nestjs/core'; 
 import { Request, Response } from 'express';
 import { CsLoggerService } from './cs-logger/cs-logger.service';
-import { PrismaClientValidationError } from '@prisma/client/runtime/library';
+import { PrismaClientValidationError, PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 
 type CustomResponseObject = {
     statusCode: number,
@@ -31,6 +31,9 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
             customResponseObj.statusCode = exception?.getStatus();
             customResponseObj.response = exception?.getResponse();
         }else if(exception instanceof PrismaClientValidationError){
+            customResponseObj.statusCode = 422;
+            customResponseObj.response = exception?.message?.replaceAll(/\n/g, '');
+        }else if(exception instanceof PrismaClientKnownRequestError){
             customResponseObj.statusCode = 422;
             customResponseObj.response = exception?.message?.replaceAll(/\n/g, '');
         }else{

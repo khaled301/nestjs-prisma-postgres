@@ -2,9 +2,36 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserRoleType } from './users.types';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { DatabaseService } from 'src/database/database.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class UsersService {
+
+    constructor(private readonly databaseService: DatabaseService){}
+
+    async newCreateUser(data: Prisma.UserCreateInput){
+        return this.databaseService.user.create({ data });
+    }
+
+    async newUpdateUser(id: number, data: Prisma.UserUpdateInput){
+        return this.databaseService.user.update({ data, where: { id } });
+    }
+
+    async newDeleteUser(id: number){
+        return this.databaseService.user.delete({ where: { id } });
+    }
+
+    async newFindAllUsers(){
+        return this.databaseService.user.findMany();
+    }
+
+    async newFindUser(id: number){
+        return this.databaseService.user.findFirst({ where: { id } });
+    }
+
+
+    // APIs service with Static Data
     private users = [
         { 
             id: 1, 
