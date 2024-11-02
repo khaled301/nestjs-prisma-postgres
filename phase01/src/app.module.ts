@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { DatabaseModule } from './database/database.module';
 import { EmployeesModule } from './employees/employees.module';
 import { CsLoggerModule } from './cs-logger/cs-logger.module';
+import { PublicApisModule } from './public-apis/public-apis.module';
 
 // Main/Roots application module
 @Module({
@@ -26,7 +27,8 @@ import { CsLoggerModule } from './cs-logger/cs-logger.module';
         limit: 100
       }
     ]),
-    CsLoggerModule
+    CsLoggerModule,
+    PublicApisModule
   ],
   controllers: [AppController],
   providers: [

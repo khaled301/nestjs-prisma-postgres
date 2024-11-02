@@ -82,6 +82,7 @@ https://console.neon.tech/app/projects
 
 ## Prisma Documentation
 https://www.prisma.io/docs
+https://www.prisma.io/docs/orm/prisma-schema/data-model/models
 
 ## Prisma Error Message Reference
 https://nestjs-prisma.dev/docs/logging-middleware/
