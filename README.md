@@ -8,15 +8,20 @@ nest g module users
 nest g controller users
 nest g service users
 
-// production dependencies
+# generate crud with module, service and controller
+nest g resource employees
+
+# production dependencies
 npm i class-validator class-transformer
 
-// dev dependencies
+# dev dependencies
 npm i @nestjs/mapped-types -D 
 
-// Prisma
+# Prisma
 npm i prisma -D
 npx prisma init
+
+# Migrate Prisma Model
 npx prisma migrate dev --name init
 
 # after changing the schema
