@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { DatabaseModule } from './database/database.module';
 import { EmployeesModule } from './employees/employees.module';
+import { CsLoggerModule } from './cs-logger/cs-logger.module';
 
 // Main/Roots application module
 @Module({
@@ -24,7 +25,8 @@ import { EmployeesModule } from './employees/employees.module';
         ttl: 60000,
         limit: 100
       }
-    ])
+    ]),
+    CsLoggerModule
   ],
   controllers: [AppController],
   providers: [

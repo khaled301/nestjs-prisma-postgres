@@ -1,4 +1,10 @@
 # nestjs-prisma-postgres
+
+
+### Neon Postgres
+https://console.neon.tech/app/projects
+
+
 ### Commands
 ```
 npm i -g @nestjs/cli
@@ -10,6 +16,9 @@ nest g service users
 
 # generate crud with module, service and controller
 nest g resource employees
+
+# rate limiting
+npm i @nestjs/throttler --save
 
 # production dependencies
 npm i class-validator class-transformer
