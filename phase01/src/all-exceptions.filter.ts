@@ -30,7 +30,7 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
         if(exception instanceof HttpException){
             customResponseObj.statusCode = exception?.getStatus();
             customResponseObj.response = exception?.getResponse();
-        }else if( exception instanceof PrismaClientValidationError){
+        }else if(exception instanceof PrismaClientValidationError){
             customResponseObj.statusCode = 422;
             customResponseObj.response = exception?.message?.replaceAll(/\n/g, '');
         }else{

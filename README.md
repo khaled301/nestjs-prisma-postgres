@@ -1,61 +1,90 @@
 # nestjs-prisma-postgres
 
+This repository provides a boilerplate for building a scalable backend API with **NestJS**, **Prisma**, and **Postgres**. It includes essential configurations, setup instructions, and best practices for managing data and handling requests.
 
-### Neon Postgres
-https://console.neon.tech/app/projects
+##  Contents
+- [Controllers](#controllers)
+- [Providers](#providers)
+- [DTO Validation](#dto-validation)
+- [REST API](#rest-api)
+- [Essential Additions](#essential-additions)
+  - [Global Exception Handling](#global-exception-handling)
+  - [Logging](#logging)
+  - [Rate Limiting](#rate-limiting)
+  - [Validation Pipe](#validation-pipe)
+  - [CORS](#cors)
+- [Prisma Setup](#prisma-setup)
+- [Helpful Links](#helpful-links)
 
+## Introduction
+This project is structured to provide a clean and modular setup for REST APIs, featuring **NestJS** as the framework, **Prisma** as the ORM, and **PostgreSQL** as the database. It includes configurations for DTO validation, rate limiting, global exception handling, and file-based logging.
 
-### Commands
-```
+## Getting Started
+
+### Prerequisites
+- **Node.js** installed
+- **PostgreSQL** database setup
+- **Neon Postgres** account for database management (optional): [Neon Console](https://console.neon.tech/app/projects)
+
+### Installation
+Install the NestJS CLI globally:
+```bash
 npm i -g @nestjs/cli
-new new project-name
 
+# Generate a new project:
+nest new project-name
+
+#Navigate to the project directory and install dependencies:
+cd project-name
+npm install
+
+# Create a new module, service, and controller
 nest g module users
 nest g controller users
 nest g service users
 
-# generate crud with module, service and controller
+# Generate CRUD resources for employees
 nest g resource employees
 
-# rate limiting
+#Rate Limiting |Install the @nestjs/throttler package:
 npm i @nestjs/throttler --save
 
-# production dependencies
+# DTO Validation |Install the required dependencies:
 npm i class-validator class-transformer
+npm i @nestjs/mapped-types -D
 
-# dev dependencies
-npm i @nestjs/mapped-types -D 
 
-# Prisma
+
+# Prisma Setup | To set up Prisma, follow these steps:
+
+#1. Set the DATABASE_URL in the .env file to point to your PostgreSQL database. For more information, read the Prisma getting started guide.
+
+#2. Install Prisma as a dev dependency:
 npm i prisma -D
+
+#3. Initialize Prisma
 npx prisma init
 
-# Migrate Prisma Model
+#4. To synchronize your Prisma schema with your database:
 npx prisma migrate dev --name init
 
-# after changing the schema
+#5. After modifying the schema, regenerate the Prisma client:
 npx prisma generate
 npx prisma migrate dev --name init
+
+#6. For existing databases, pull the schema:
+npx prisma db pull
 ```
 
-## Prisma Instructions:
-Steps:
-1. Set the DATABASE_URL in the .env file to point to your existing database. If your database has no tables yet, read https://pris.ly/d/getting-started
+# Helpful Links
+## Neon Postgres Console
+https://console.neon.tech/app/projects
 
-2. Set the provider of the datasource block in schema.prisma to match your database: postgresql, mysql, sqlite, sqlserver, 
-mongodb or cockroachdb.
+## Prisma Documentation
+https://www.prisma.io/docs
 
-3. Run prisma db pull to turn your database schema into a Prisma schema.
-```
- prisma db pull
-```
+## Prisma Error Message Reference
+https://nestjs-prisma.dev/docs/logging-middleware/
 
-4. Run prisma generate to generate the Prisma Client. You can then start querying your database.
-```
-prisma generate
-```
-
-5. Tip: Explore how you can extend the ORM with scalable connection pooling, global caching, and real-time database events. Read: https://pris.ly/cli/beyond-orm
-
-More information in our documentation:
-https://pris.ly/d/getting-started
+## Prisma NestJs | nestjs-prisma Package Documentation
+https://nestjs-prisma.dev/docs/logging-middleware/
