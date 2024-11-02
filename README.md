@@ -2,19 +2,19 @@
 
 This repository provides a boilerplate for building a scalable backend API with **NestJS**, **Prisma**, and **Postgres**. It includes essential configurations, setup instructions, and best practices for managing data and handling requests.
 
-##  Contents
-- [Controllers](#controllers)
-- [Providers](#providers)
-- [DTO Validation](#dto-validation)
-- [REST API](#rest-api)
-- [Essential Additions](#essential-additions)
-  - [Global Exception Handling](#global-exception-handling)
-  - [Logging](#logging)
-  - [Rate Limiting](#rate-limiting)
-  - [Validation Pipe](#validation-pipe)
-  - [CORS](#cors)
-- [Prisma Setup](#prisma-setup)
-- [Helpful Links](#helpful-links)
+##  [Contents](#Contents)
+- Controllers
+- Providers
+- DTO Validation
+- REST API
+- Essential Additions
+  - Global Exception Handling
+  - Logging
+  - Rate Limiting
+  - Validation Pipe
+  - CORS
+- Prisma Setup
+- Helpful Links
 
 ## Introduction
 This project is structured to provide a clean and modular setup for REST APIs, featuring **NestJS** as the framework, **Prisma** as the ORM, and **PostgreSQL** as the database. It includes configurations for DTO validation, rate limiting, global exception handling, and file-based logging.
