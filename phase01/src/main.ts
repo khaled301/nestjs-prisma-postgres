@@ -1,5 +1,7 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, HttpAdapterHost } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { AllExceptionsFilter } from './all-exceptions.filter';
+
 // import { CsLoggerService } from './cs-logger/cs-logger.service';
 
 // entry point of the application
@@ -22,8 +24,6 @@ const corsOptions = {
 
 async function bootstrap() {
   // custom buffer logs so that the logger service can initiate
-  const app = await NestFactory.create(AppModule); 
-
   // const app = await NestFactory.create(AppModule, {
   //   bufferLogs: true
   // });
@@ -31,6 +31,10 @@ async function bootstrap() {
   // // custom logger service 
   // app.useLogger(app.get(CsLoggerService));
 
+  const app = await NestFactory.create(AppModule); 
+
+  const { httpAdapter } = app.get(HttpAdapterHost);
+  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter))
   // enable cors
   app.enableCors(corsOptions);  
   // set global prefix for all routes which is 'api' in this case
