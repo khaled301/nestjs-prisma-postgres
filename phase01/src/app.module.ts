@@ -8,6 +8,7 @@ import { DatabaseModule } from './database/database.module';
 import { EmployeesModule } from './employees/employees.module';
 import { CsLoggerModule } from './cs-logger/cs-logger.module';
 import { PublicApisModule } from './public-apis/public-apis.module';
+import { PostsModule } from './posts/posts.module';
 
 // Main/Roots application module
 @Module({
@@ -28,7 +29,8 @@ import { PublicApisModule } from './public-apis/public-apis.module';
       }
     ]),
     CsLoggerModule,
-    PublicApisModule
+    PublicApisModule,
+    PostsModule
   ],
   controllers: [AppController],
   providers: [

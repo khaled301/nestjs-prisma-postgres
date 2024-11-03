@@ -64,7 +64,8 @@ export class UsersService {
                         notificationIsOn: true,
                         smsEnabled: true
                     }
-                }
+                },
+                posts: true
             }
         });
 
@@ -80,7 +81,6 @@ export class UsersService {
 
         return this.databaseService.userSetting.update({ data, where: { userId } });
     }
-
 
     // APIs service with Static Data
     private users = [

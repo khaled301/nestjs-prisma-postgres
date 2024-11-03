@@ -35,7 +35,8 @@ model User {
   id          Int          @id @default(autoincrement())
   username    String       @unique
   displayname String?      @default("")
-  userSetting UserSetting?  //one to one relation with the UserSetting
+  userSetting UserSetting? //one to one relation with the UserSetting
+  posts       Post[] // one to many relation with the Post
 }
 
 model UserSetting {
@@ -50,4 +51,6 @@ model Post {
   id          Int    @id @default(autoincrement())
   title       String
   description String
+  user        User   @relation(fields: [userId], references: [id]) //one to many relation with the User
+  userId      Int
 }
