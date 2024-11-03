@@ -65,7 +65,20 @@ export class UsersService {
                         smsEnabled: true
                     }
                 },
-                posts: true
+                posts: {
+                    select:{
+                        title: true 
+                    }
+                },
+                groupPosts: {
+                    include: {
+                        groupPost: {
+                            select: {
+                                title: true
+                            }
+                        }
+                    }
+                }
             }
         });
 

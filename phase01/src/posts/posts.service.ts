@@ -11,4 +11,37 @@ export class PostsService {
             userId
         } });
     }
+
+    createGroupPost(userIds: number[], data: Prisma.GroupPostCreateWithoutUsersInput){
+        // return this.databaseService.groupPost.create({
+        //     data: {
+        //         title: data.title,
+        //         description: data.description,
+        //         users: {
+        //             create: [{userId: 1}, {userId: 2}]
+        //         }
+        //     }
+        // })
+
+        return this.databaseService.groupPost.create({
+            data: {
+                ...data,
+                users: {
+                    create: userIds.map(userId => ({ userId }))
+                }
+            }
+        })
+    }
+
+    getGroupPosts(){
+        return this.databaseService.groupPost.findMany({ 
+            include: { 
+                users: {
+                    select: { 
+                        user: true
+                    }
+                } 
+            }
+        });
+    }
 }
