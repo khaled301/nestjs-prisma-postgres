@@ -11,14 +11,24 @@ export class UsersService {
     constructor(private readonly databaseService: DatabaseService){}
 
     async findUserByName(username: string){
-        return this.databaseService.user.findUnique({ where: { username } });
+        return this.databaseService.user.findUnique({ where: { username }, include: { userSetting: true } });
     }
 
     async newCreateUser(data: Prisma.UserCreateInput){
         const findUserByName: any = await this.findUserByName(data.username);
         if(findUserByName) throw new HttpException("Username already exists", 409);
 
-        return this.databaseService.user.create({ data });
+        return this.databaseService.user.create({ 
+            data: {
+                ...data,
+                userSetting: {
+                    create: {
+                        notificationIsOn: true,
+                        smsEnabled: false
+                    }
+                }
+            } 
+        });
     }
 
     async newUpdateUser(id: number, data: Prisma.UserUpdateInput){
@@ -40,15 +50,35 @@ export class UsersService {
     }
 
     async newFindAllUsers(){
-        return await this.databaseService.user.findMany();
+        return await this.databaseService.user.findMany({
+            include: { userSetting: true }
+        });
     }
 
     async newFindUser(id: number){
-        const user = this.databaseService.user.findUnique({ where: { id } });
+        const user = this.databaseService.user.findUnique({ 
+            where: { id },
+            include: {
+                userSetting: {
+                    select: {
+                        notificationIsOn: true,
+                        smsEnabled: true
+                    }
+                }
+            }
+        });
 
         if(!await user) throw new HttpException("No Users Found", 404);
 
         return user;
+    }
+
+    async newUpdateUserSettings(userId: number, data: Prisma.UserSettingUpdateInput){
+        const user = await this.newFindUser(userId);
+        if(!user) throw new HttpException("No Users Found", 404);
+        if(!user?.userSetting) throw new HttpException("Bad Request", 400);
+
+        return this.databaseService.userSetting.update({ data, where: { userId } });
     }
 
 

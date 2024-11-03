@@ -10,6 +10,7 @@ import { UserRoleType } from './users.types';
 import { NewCreateUserDto } from './dto/newCreateUser.dto';
 import { NewUpdateUserDto } from './dto/newUpdateUser.dto';
 import { Prisma } from '@prisma/client';
+import { NewUpdateUserSettingDto } from './dto/newUpdateUserSetting.dto';
 
 // Data transfer Object Schemas | DTOs
 // Pipes are special type of middleware
@@ -62,6 +63,16 @@ export class UsersController {
         return this.usersService.newFindUser(id);
     }
 
+    @Patch('new/:userId/settings')
+    newUpdateUserSettings(
+        @Param('userId', ParseIntPipe) userId: number, 
+        @Body(ValidationPipe) updateUserSettingDto: NewUpdateUserSettingDto
+    ){
+        return this.usersService.newUpdateUserSettings(userId, updateUserSettingDto);
+    }
+
+
+    // Routes for the static contents
     @Get() // GET /users or /users?role=value
     findAll(@Query('role') role?: UserRoleType){
         return this.usersService.findAll(role);
@@ -90,5 +101,4 @@ export class UsersController {
     delete(@Param('id', ParseIntPipe) id: number){
         return this.usersService.delete(id);
     }
-
 }

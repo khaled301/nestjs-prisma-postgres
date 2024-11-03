@@ -18,7 +18,7 @@ datasource db {
 
 model Employee {
   id        Int      @id @default(autoincrement())
-  name      String   
+  name      String
   email     String   @unique
   role      Role
   createdAt DateTime @default(now())
@@ -32,20 +32,22 @@ enum Role {
 }
 
 model User {
-  id Int @default(autoincrement()) @id
-  username String @unique
-  displayname String @default("")
+  id          Int          @id @default(autoincrement())
+  username    String       @unique
+  displayname String?      @default("")
+  userSetting UserSetting?  //one to one relation with the UserSetting
 }
 
 model UserSetting {
-  id Int @default(autoincrement()) @id 
+  id               Int     @id @default(autoincrement())
   notificationIsOn Boolean
-  smsEnabled  Boolean
+  smsEnabled       Boolean
+  user             User    @relation(fields: [userId], references: [id]) //one to one relation with the User
+  userId           Int     @unique
 }
 
 model Post {
-  id Int @default(autoincrement()) @id
-  title String
+  id          Int    @id @default(autoincrement())
+  title       String
   description String
 }
-
