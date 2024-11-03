@@ -37,6 +37,7 @@ model User {
   displayname String?      @default("")
   userSetting UserSetting? //one to one relation with the UserSetting
   posts       Post[] // one to many relation with the Post
+  groupPosts  UserOnGroupPosts[] // Many to Many relation with the GroupPost  using UserOnGroupPosts Junction Table
 }
 
 model UserSetting {
@@ -53,4 +54,22 @@ model Post {
   description String
   user        User   @relation(fields: [userId], references: [id]) //one to many relation with the User
   userId      Int
+}
+
+// Junction table | hold primary keys of the tables that we want to relate with each other
+// @@id is multifield IDs required for the Junction table of Many to Many relationship
+model UserOnGroupPosts{
+  user User @relation(fields: [userId], references: [id]) // Many to Many relation reference for User
+  userId Int 
+  groupPost GroupPost @relation(fields: [groupPostId], references: [id]) // Many to Many relation reference for GroupPost
+  groupPostId Int
+
+  @@id([userId, groupPostId]) // multifield IDs
+}
+
+model GroupPost {
+  id Int  @id @default(autoincrement())
+  title String 
+  description String 
+  users UserOnGroupPosts[] // Many to Many Relation with the Users using UserOnGroupPosts Junction Table
 }
