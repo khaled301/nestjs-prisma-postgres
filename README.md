@@ -8,7 +8,7 @@ This repository provides a boilerplate for building a scalable backend API with 
 - DTO Validation
 - REST API
 - Fetch Data From Public API 
-- Prisma with PostgreSQL
+- Prisma ORM with PostgreSQL
 - Relationships(1-to-1, 1-to-M>, M-to-M) 
 - Essential Additions
   - Global Exception Handling

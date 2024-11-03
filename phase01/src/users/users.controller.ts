@@ -9,6 +9,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRoleType } from './users.types';
 import { NewCreateUserDto } from './dto/newCreateUser.dto';
 import { NewUpdateUserDto } from './dto/newUpdateUser.dto';
+import { Prisma } from '@prisma/client';
 
 // Data transfer Object Schemas | DTOs
 // Pipes are special type of middleware
@@ -17,6 +18,22 @@ import { NewUpdateUserDto } from './dto/newUpdateUser.dto';
 export class UsersController {
 
     constructor(private readonly usersService: UsersService) {}
+
+    /*
+    /* We should use DTO in the controller because we need to validate, and
+    /* "Prisma.UserCreateInput" or "Prisma.UserUpdateInput" may not provide
+    /* a formatted or meaningful response for validation errors
+    /* 
+    /*
+        newCreateUser(@Body() createUserDto: Prisma.UserCreateInput) {
+            return this.usersService.newCreateUser(createUserDto);
+        }
+
+        newUpdateUser(@Param('id', ParseIntPipe) id: number,  @Body() updateUserDto: Prisma.UserUpdateInput) {
+            return this.usersService.newUpdateUser(id, updateUserDto);
+        }
+    /*
+    */
 
     @Post('new')
     @UsePipes(ValidationPipe)

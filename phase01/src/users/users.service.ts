@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { UserRoleType } from './users.types';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -10,24 +10,45 @@ export class UsersService {
 
     constructor(private readonly databaseService: DatabaseService){}
 
+    async findUserByName(username: string){
+        return this.databaseService.user.findUnique({ where: { username } });
+    }
+
     async newCreateUser(data: Prisma.UserCreateInput){
+        const findUserByName: any = await this.findUserByName(data.username);
+        if(findUserByName) throw new HttpException("Username already exists", 409);
+
         return this.databaseService.user.create({ data });
     }
 
     async newUpdateUser(id: number, data: Prisma.UserUpdateInput){
+        const user = await this.newFindUser(id);
+        if(!user) throw new HttpException("No Users Found", 404);
+
+        const findUserByName: any = await this.findUserByName(data?.username as string);
+
+        if(findUserByName) throw new HttpException("Username already exists", 409);
+
         return this.databaseService.user.update({ data, where: { id } });
     }
 
     async newDeleteUser(id: number){
+        const user = await this.newFindUser(id);
+        if(!user) throw new HttpException("No Users Found", 404);
+
         return this.databaseService.user.delete({ where: { id } });
     }
 
     async newFindAllUsers(){
-        return this.databaseService.user.findMany();
+        return await this.databaseService.user.findMany();
     }
 
     async newFindUser(id: number){
-        return this.databaseService.user.findFirst({ where: { id } });
+        const user = this.databaseService.user.findUnique({ where: { id } });
+
+        if(!await user) throw new HttpException("No Users Found", 404);
+
+        return user;
     }
 
 
