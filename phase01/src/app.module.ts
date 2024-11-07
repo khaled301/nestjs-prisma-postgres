@@ -11,10 +11,17 @@ import { PublicApisModule } from './public-apis/public-apis.module';
 import { PostsModule } from './posts/posts.module';
 import { StaffModule } from './staff/staff.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import { configLoads } from './modules/config';
 
 // Main/Roots application module
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: configLoads,
+      envFilePath: '.env'
+    }),
     UsersModule, 
     DatabaseModule, 
     EmployeesModule,

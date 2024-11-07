@@ -10,7 +10,7 @@ This repository provides a boilerplate for building a scalable backend API with 
 - Fetch Data From Public API 
 - Prisma ORM with PostgreSQL
 - Relationships([1-to-1], [1-to-M], [M-to-M]) 
-- Authentication using Passport
+- Authentication using JWT
 - Essential Additions
   - Global Exception Handling
   - Logging
@@ -56,7 +56,9 @@ npm i @nestjs/throttler --save
 npm i class-validator class-transformer
 npm i @nestjs/mapped-types -D
 
-
+#JWT Authentication dependencies
+npm i --save @nestjs/config
+npm i @nestjs/jwt
 
 # Prisma Setup | To set up Prisma, follow these steps:
 
