@@ -10,6 +10,7 @@ This repository provides a boilerplate for building a scalable backend API with 
 - Fetch Data From Public API 
 - Prisma ORM with PostgreSQL
 - Relationships([1-to-1], [1-to-M], [M-to-M]) 
+- Authentication using Passport
 - Essential Additions
   - Global Exception Handling
   - Logging
@@ -41,9 +42,9 @@ cd project-name
 npm install
 
 # Create a new module, service, and controller
-nest g module users
-nest g controller users
-nest g service users
+nest g module users --no-spec
+nest g controller users --no-spec
+nest g service users --no-spec
 
 # Generate CRUD resources for employees
 nest g resource employees

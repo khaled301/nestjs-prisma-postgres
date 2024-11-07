@@ -73,3 +73,12 @@ model GroupPost {
   description String 
   users UserOnGroupPosts[] // Many to Many Relation with the Users using UserOnGroupPosts Junction Table
 }
+
+model Staff {
+  id Int  @id @default(autoincrement())
+  name String
+  email String @unique
+  password String 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
