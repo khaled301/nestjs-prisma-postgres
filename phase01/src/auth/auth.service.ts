@@ -41,7 +41,7 @@ export class AuthService {
     }
 
     async validateUser(input: validateStaffDto): Promise<LoginDto | null> {
-        const staff = await this.staffService.findUserByName(input?.email);
+        const staff = await this.staffService.findStaffByEmail(input?.email);
 
         if(staff && staff?.password === input?.password) {
             return {

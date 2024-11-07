@@ -10,7 +10,7 @@ export type User = {
 @Injectable()
 export class StaffService {
     constructor(private readonly databaseService: DatabaseService){}
-    async findUserByName(email: string) {
+    async findStaffByEmail(email: string) {
         return this.databaseService.staff.findFirst({ where: { email } });
     }
 }
