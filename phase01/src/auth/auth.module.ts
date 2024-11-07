@@ -5,11 +5,14 @@ import { DatabaseModule } from 'src/database/database.module';
 import { StaffModule } from 'src/staff/staff.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthV2Controller } from './passport-auth.controller';
+import { LocalStrategy } from './strategies/local.strategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 
 @Module({
-  controllers: [AuthController],
-  providers: [AuthService],
+  controllers: [AuthController, AuthV2Controller],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService],
   imports: [
     DatabaseModule, 
