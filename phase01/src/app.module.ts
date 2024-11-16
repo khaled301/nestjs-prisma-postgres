@@ -13,6 +13,8 @@ import { StaffModule } from './staff/staff.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { configLoads } from './modules/config';
+import { CacheModule } from '@nestjs/cache-manager';
+import { StudentsModule } from './students/students.module';
 
 // Main/Roots application module
 @Module({
@@ -37,11 +39,16 @@ import { configLoads } from './modules/config';
         limit: 100
       }
     ]),
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 10000,
+    }),
     CsLoggerModule,
     PublicApisModule,
     PostsModule,
     StaffModule,
-    AuthModule
+    AuthModule,
+    StudentsModule
   ],
   controllers: [AppController],
   providers: [

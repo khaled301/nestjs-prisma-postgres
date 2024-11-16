@@ -11,6 +11,8 @@ This repository provides a boilerplate for building a scalable backend API with 
 - Prisma ORM with PostgreSQL
 - Relationships([1-to-1], [1-to-M], [M-to-M]) 
 - Authentication using both JWT & Passport
+- Auth Guard
+- Caching with Cache Manager and Redis
 - Essential Additions
   - Global Exception Handling
   - Logging
@@ -88,6 +90,9 @@ npx prisma migrate dev --name init
 
 #6. For existing databases, pull the schema:
 npx prisma db pull
+
+# Cache with Redis
+npm i @nestjs/cache-manager cache-manager
 ```
 
 # Helpful Links
