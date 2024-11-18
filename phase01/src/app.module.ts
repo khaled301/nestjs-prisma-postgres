@@ -11,10 +11,11 @@ import { PublicApisModule } from './public-apis/public-apis.module';
 import { PostsModule } from './posts/posts.module';
 import { StaffModule } from './staff/staff.module';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configLoads } from './modules/config';
 import { CacheModule } from '@nestjs/cache-manager';
 import { StudentsModule } from './students/students.module';
+import { redisStore } from 'cache-manager-redis-yet';
 
 // Main/Roots application module
 @Module({
@@ -39,9 +40,30 @@ import { StudentsModule } from './students/students.module';
         limit: 100
       }
     ]),
-    CacheModule.register({
+    CacheModule.registerAsync({
       isGlobal: true,
-      ttl: 10000,
+      inject: [ConfigService],
+      useFactory: async (config: ConfigService) => {
+        const store = await redisStore({
+          // The "ttl" is required to set here inside redis store because 
+          // the default "ttl" will not work with "registerAsync" as expected
+          ttl: 30 * 1000,
+          socket: {
+              host: config.get('REDIS_HOST').host,
+              port: config.get('REDIS_PORT').port
+          }
+        });
+
+        return { store };
+      },
+      
+      // // like abovein production we need to configure the redisStore to connect to the redis server with
+      // // username,password,host, port ...
+      // // using configService & .env
+      // store: redisStore,
+
+      //// the below "ttl" will work if the "CacheModule" uses "register" instead of "registerAsync"
+      // ttl: 10000,
     }),
     CsLoggerModule,
     PublicApisModule,

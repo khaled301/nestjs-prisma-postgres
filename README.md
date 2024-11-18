@@ -93,6 +93,7 @@ npx prisma db pull
 
 # Cache with Redis
 npm i @nestjs/cache-manager cache-manager
+npm i cache-manager-redis-yet
 ```
 
 # Helpful Links

@@ -11,8 +11,17 @@ export class StudentsService {
         // if(cachedStudents) return {source: 'cache', data: cachedStudents}; 
 
         const dbStudents =  await this.retrieveStudentFromDB();
-        await this.cacheManger.set('students', dbStudents, 10000);
+        //// doesn't need to set the value in the cache as it will be set in Redis by the CacheInterceptor
+        // await this.cacheManger.set('students', dbStudents, 10000);
         return dbStudents;
+    }
+
+    async deleteStudents() {
+        return this.cacheManger.del('students');
+    }
+
+    async resetCache() {
+        return this.cacheManger.reset();
     }
 
     async retrieveStudentFromDB(){
